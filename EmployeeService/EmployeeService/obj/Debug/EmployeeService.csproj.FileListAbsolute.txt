@@ -1,0 +1,8 @@
+D:\red-repo\red-repo\webserver\EmployeeService\EmployeeService\bin\EmployeeService.dll
+D:\red-repo\red-repo\webserver\EmployeeService\EmployeeService\bin\EmployeeService.pdb
+D:\red-repo\red-repo\webserver\EmployeeService\EmployeeService\obj\Debug\EmployeeService.dll
+D:\red-repo\red-repo\webserver\EmployeeService\EmployeeService\obj\Debug\EmployeeService.pdb
+D:\wcf assignmt\WCF\EmployeeService\EmployeeService\bin\EmployeeService.dll
+D:\wcf assignmt\WCF\EmployeeService\EmployeeService\bin\EmployeeService.pdb
+D:\wcf assignmt\WCF\EmployeeService\EmployeeService\obj\Debug\EmployeeService.dll
+D:\wcf assignmt\WCF\EmployeeService\EmployeeService\obj\Debug\EmployeeService.pdb

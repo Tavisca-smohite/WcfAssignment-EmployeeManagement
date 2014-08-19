@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="EmployeeServiceImplementation" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:49776/EmployeeServiceImplementation.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:49776/EmployeeServiceImplementation.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/EmployeeService" />
+      <xsd:import schemaLocation="http://localhost:49776/EmployeeServiceImplementation.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:49776/EmployeeServiceImplementation.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICreateEmployeeService_CreateEmployee_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateEmployee" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEmployeeService_CreateEmployee_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEmployeeService_CreateEmployee_CustomTypeExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/EmployeeService" name="detail" element="q1:CustomTypeException" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEmployeeService_AddRemarks_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddRemarks" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEmployeeService_AddRemarks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddRemarksResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEmployeeService_AddRemarks_CustomTypeExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/EmployeeService" name="detail" element="q2:CustomTypeException" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEmployeeService_EmployeeClear_InputMessage">
+    <wsdl:part name="parameters" element="tns:EmployeeClear" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEmployeeService_EmployeeClear_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EmployeeClearResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRetrieveEmployeeService_GetEmployees_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployees" />
+  </wsdl:message>
+  <wsdl:message name="IRetrieveEmployeeService_GetEmployees_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRetrieveEmployeeService_GetEmployees_CustomTypeExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/EmployeeService" name="detail" element="q3:CustomTypeException" />
+  </wsdl:message>
+  <wsdl:message name="IRetrieveEmployeeService_SearchById_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchById" />
+  </wsdl:message>
+  <wsdl:message name="IRetrieveEmployeeService_SearchById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRetrieveEmployeeService_SearchByName_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchByName" />
+  </wsdl:message>
+  <wsdl:message name="IRetrieveEmployeeService_SearchByName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchByNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRetrieveEmployeeService_GetEmployeesByRemark_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeesByRemark" />
+  </wsdl:message>
+  <wsdl:message name="IRetrieveEmployeeService_GetEmployeesByRemark_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeesByRemarkResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRetrieveEmployeeService_GetEmployeesHavingRemarks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeesHavingRemarks" />
+  </wsdl:message>
+  <wsdl:message name="IRetrieveEmployeeService_GetEmployeesHavingRemarks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeesHavingRemarksResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICreateEmployeeService">
+    <wsdl:operation name="CreateEmployee">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEmployeeService/CreateEmployee" message="tns:ICreateEmployeeService_CreateEmployee_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEmployeeService/CreateEmployeeResponse" message="tns:ICreateEmployeeService_CreateEmployee_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/ICreateEmployeeService/CreateEmployeeCustomTypeExceptionFault" name="CustomTypeExceptionFault" message="tns:ICreateEmployeeService_CreateEmployee_CustomTypeExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddRemarks">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEmployeeService/AddRemarks" message="tns:ICreateEmployeeService_AddRemarks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEmployeeService/AddRemarksResponse" message="tns:ICreateEmployeeService_AddRemarks_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/ICreateEmployeeService/AddRemarksCustomTypeExceptionFault" name="CustomTypeExceptionFault" message="tns:ICreateEmployeeService_AddRemarks_CustomTypeExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EmployeeClear">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEmployeeService/EmployeeClear" message="tns:ICreateEmployeeService_EmployeeClear_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEmployeeService/EmployeeClearResponse" message="tns:ICreateEmployeeService_EmployeeClear_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IRetrieveEmployeeService">
+    <wsdl:operation name="GetEmployees">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRetrieveEmployeeService/GetEmployees" message="tns:IRetrieveEmployeeService_GetEmployees_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRetrieveEmployeeService/GetEmployeesResponse" message="tns:IRetrieveEmployeeService_GetEmployees_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRetrieveEmployeeService/GetEmployeesCustomTypeExceptionFault" name="CustomTypeExceptionFault" message="tns:IRetrieveEmployeeService_GetEmployees_CustomTypeExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRetrieveEmployeeService/SearchById" message="tns:IRetrieveEmployeeService_SearchById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRetrieveEmployeeService/SearchByIdResponse" message="tns:IRetrieveEmployeeService_SearchById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchByName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRetrieveEmployeeService/SearchByName" message="tns:IRetrieveEmployeeService_SearchByName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRetrieveEmployeeService/SearchByNameResponse" message="tns:IRetrieveEmployeeService_SearchByName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeesByRemark">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRetrieveEmployeeService/GetEmployeesByRemark" message="tns:IRetrieveEmployeeService_GetEmployeesByRemark_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRetrieveEmployeeService/GetEmployeesByRemarkResponse" message="tns:IRetrieveEmployeeService_GetEmployeesByRemark_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeesHavingRemarks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRetrieveEmployeeService/GetEmployeesHavingRemarks" message="tns:IRetrieveEmployeeService_GetEmployeesHavingRemarks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRetrieveEmployeeService/GetEmployeesHavingRemarksResponse" message="tns:IRetrieveEmployeeService_GetEmployeesHavingRemarks_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ICreateEmployeeService" type="tns:ICreateEmployeeService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateEmployee">
+      <soap:operation soapAction="http://tempuri.org/ICreateEmployeeService/CreateEmployee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CustomTypeExceptionFault">
+        <soap:fault use="literal" name="CustomTypeExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AddRemarks">
+      <soap:operation soapAction="http://tempuri.org/ICreateEmployeeService/AddRemarks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CustomTypeExceptionFault">
+        <soap:fault use="literal" name="CustomTypeExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="EmployeeClear">
+      <soap:operation soapAction="http://tempuri.org/ICreateEmployeeService/EmployeeClear" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IRetrieveEmployeeService" type="tns:IRetrieveEmployeeService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetEmployees">
+      <soap:operation soapAction="http://tempuri.org/IRetrieveEmployeeService/GetEmployees" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CustomTypeExceptionFault">
+        <soap:fault use="literal" name="CustomTypeExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SearchById">
+      <soap:operation soapAction="http://tempuri.org/IRetrieveEmployeeService/SearchById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchByName">
+      <soap:operation soapAction="http://tempuri.org/IRetrieveEmployeeService/SearchByName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeesByRemark">
+      <soap:operation soapAction="http://tempuri.org/IRetrieveEmployeeService/GetEmployeesByRemark" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeesHavingRemarks">
+      <soap:operation soapAction="http://tempuri.org/IRetrieveEmployeeService/GetEmployeesHavingRemarks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EmployeeServiceImplementation">
+    <wsdl:port name="BasicHttpBinding_ICreateEmployeeService" binding="tns:BasicHttpBinding_ICreateEmployeeService">
+      <soap:address location="http://localhost:49776/EmployeeServiceImplementation.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IRetrieveEmployeeService" binding="tns:BasicHttpBinding_IRetrieveEmployeeService">
+      <soap:address location="http://localhost:49776/EmployeeServiceImplementation.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,5 @@
+D:\wcf assignmt\WCF\EmployeeService\WcfServiceFixture\bin\Debug\WcfServiceFixture.dll
+D:\wcf assignmt\WCF\EmployeeService\WcfServiceFixture\bin\Debug\WcfServiceFixture.pdb
+D:\wcf assignmt\WCF\EmployeeService\WcfServiceFixture\obj\Debug\WcfServiceFixture.dll
+D:\wcf assignmt\WCF\EmployeeService\WcfServiceFixture\obj\Debug\WcfServiceFixture.pdb
+D:\wcf assignmt\WCF\EmployeeService\WcfServiceFixture\bin\Debug\WcfServiceFixture.dll.config
