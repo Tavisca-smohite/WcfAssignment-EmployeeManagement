@@ -13,7 +13,7 @@ namespace EmployeeService
     {
         [OperationContract]
         [FaultContract(typeof(CustomTypeException))]
-        Employee CreateEmployee(Employee e);
+        Employee CreateEmployee(int id,string name);
 
         [OperationContract]
         [FaultContract(typeof(CustomTypeException))]
@@ -47,7 +47,13 @@ namespace EmployeeService
    
     [DataContract]
     public class Employee
-    {                
+    {
+
+        public Employee(int id,string name)
+        {
+            this.Id = id;
+            this.Name = name;
+        }
         [DataMember]
         public int Id { get; set; }
 

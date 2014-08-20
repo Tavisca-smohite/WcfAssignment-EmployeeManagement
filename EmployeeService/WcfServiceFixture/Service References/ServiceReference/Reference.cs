@@ -173,7 +173,7 @@ namespace WcfServiceFixture.ServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreateEmployeeService/CreateEmployee", ReplyAction="http://tempuri.org/ICreateEmployeeService/CreateEmployeeResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(WcfServiceFixture.ServiceReference.CustomTypeException), Action="http://tempuri.org/ICreateEmployeeService/CreateEmployeeCustomTypeExceptionFault", Name="CustomTypeException", Namespace="http://schemas.datacontract.org/2004/07/EmployeeService")]
-        WcfServiceFixture.ServiceReference.Employee CreateEmployee(WcfServiceFixture.ServiceReference.Employee e);
+        WcfServiceFixture.ServiceReference.Employee CreateEmployee(int id, string name);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreateEmployeeService/AddRemarks", ReplyAction="http://tempuri.org/ICreateEmployeeService/AddRemarksResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(WcfServiceFixture.ServiceReference.CustomTypeException), Action="http://tempuri.org/ICreateEmployeeService/AddRemarksCustomTypeExceptionFault", Name="CustomTypeException", Namespace="http://schemas.datacontract.org/2004/07/EmployeeService")]
@@ -210,8 +210,8 @@ namespace WcfServiceFixture.ServiceReference {
                 base(binding, remoteAddress) {
         }
         
-        public WcfServiceFixture.ServiceReference.Employee CreateEmployee(WcfServiceFixture.ServiceReference.Employee e) {
-            return base.Channel.CreateEmployee(e);
+        public WcfServiceFixture.ServiceReference.Employee CreateEmployee(int id, string name) {
+            return base.Channel.CreateEmployee(id, name);
         }
         
         public string AddRemarks(int id, string remarks) {

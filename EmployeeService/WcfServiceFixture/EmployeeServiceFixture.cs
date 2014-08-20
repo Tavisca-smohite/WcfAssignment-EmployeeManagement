@@ -15,6 +15,7 @@ namespace WcfServiceFixture
         CreateEmployeeServiceClient _getEmployeeClient  = new CreateEmployeeServiceClient("BasicHttpBinding_ICreateEmployeeService");
         RetrieveEmployeeServiceClient _retrieveClient = new RetrieveEmployeeServiceClient("BasicHttpBinding_IRetrieveEmployeeService");
 
+        //to close client instance after every test case
         [TestCleanup]
         public void CloseClientInstance()
         {
@@ -30,15 +31,12 @@ namespace WcfServiceFixture
         public void IfIdExistsTest()
         {
 
-            var e = _getEmployeeClient.CreateEmployee(SetupTestData.TestEmployeeData());
+            var e = _getEmployeeClient.CreateEmployee(1,"sheetal");
             if (e is Employee)
             {
-                e = _getEmployeeClient.CreateEmployee(SetupTestData.TestEmployeeData());
+                e = _getEmployeeClient.CreateEmployee(1,"sheetal");
             }
-            if (_getEmployeeClient != null)
-            {
-             
-            }
+           
         }
 
         /// <summary>
@@ -50,13 +48,16 @@ namespace WcfServiceFixture
             bool isUnique = false;
             try
             {
-                var e = _getEmployeeClient.CreateEmployee(SetupTestData.TestEmployeeData());
+                var e = _getEmployeeClient.CreateEmployee(1,"sheetal");
                 isUnique = e is Employee ? true : false;
             }
             catch (FaultException<CustomTypeException>)
             {
-                //entered employee data already exists
-                var testEmployee = _getEmployeeClient.CreateEmployee(SetupTestData.CreateTestEmployee(17, "tanya"));
+                //it will throw exception if above employee already exists in datalist
+                //ignoring the exception we will try to add other employee data with unique id
+                //this test will validate that server will only accept data with unique ids
+
+                var testEmployee = _getEmployeeClient.CreateEmployee(17, "tanya");
                 isUnique = testEmployee is Employee ? true : false;
                 _getEmployeeClient.EmployeeClear();
             }
@@ -77,13 +78,18 @@ namespace WcfServiceFixture
         [TestMethod]
         public void RetrivalOfEmployeeData()
         {
-            var testEmployee = _getEmployeeClient.CreateEmployee(SetupTestData.CreateTestEmployee(12, "tanya"));
+            var testEmployee = _getEmployeeClient.CreateEmployee(12, "tanya");
             var list = _retrieveClient.GetEmployees();
 
             Assert.AreEqual(list.GetType(), typeof(Employee[]));
 
         }
 
+        /// <summary>
+        /// we cant add remarks for those employee fields which doesnt exist 
+        /// in data base or data list
+        /// it will give a message to client abt non existance of employee
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(FaultException<CustomTypeException>))]
         public void CantAddRemarkToNonExistingEmployee()
@@ -96,7 +102,7 @@ namespace WcfServiceFixture
         public void AddRemarkForExistingEmployeeOnly()
         {
             _getEmployeeClient.EmployeeClear();
-            var testEmployee = _getEmployeeClient.CreateEmployee(SetupTestData.CreateTestEmployee(17, "tanya"));
+            var testEmployee = _getEmployeeClient.CreateEmployee(17, "tanya");
             var addedRemark =_getEmployeeClient.AddRemarks(17, "good");
             Assert.AreEqual(addedRemark, "Remark added successfully");
         }
@@ -105,7 +111,7 @@ namespace WcfServiceFixture
         public void RetrieveById()
         {
             _getEmployeeClient.EmployeeClear();
-            var testEmployee =_getEmployeeClient.CreateEmployee(SetupTestData.CreateTestEmployee(17, "tanya"));
+            var testEmployee =_getEmployeeClient.CreateEmployee(17, "tanya");
             testEmployee = _retrieveClient.SearchById(17);
             Assert.AreEqual(testEmployee.GetType(), typeof(Employee));
         }
@@ -114,7 +120,7 @@ namespace WcfServiceFixture
         public void RetrieveByName()
         {
             _getEmployeeClient.EmployeeClear();
-            var testEmployee = _getEmployeeClient.CreateEmployee(SetupTestData.CreateTestEmployee(17, "tanya"));
+            var testEmployee = _getEmployeeClient.CreateEmployee(17, "tanya");
             testEmployee = _retrieveClient.SearchByName("tanya");
             Assert.AreEqual(testEmployee.GetType(), typeof(Employee));
         }
@@ -128,12 +134,12 @@ namespace WcfServiceFixture
         public void RetrivalByParticularRemark()
         {
             _getEmployeeClient .EmployeeClear();
-            var testEmployee = _getEmployeeClient .CreateEmployee(SetupTestData.CreateTestEmployee(17, "tanya"));
+            var testEmployee = _getEmployeeClient .CreateEmployee(17, "tanya");
             var addedRemark = _getEmployeeClient .AddRemarks(17, "good");
-            testEmployee = _getEmployeeClient .CreateEmployee(SetupTestData.CreateTestEmployee(15, "sheetal"));
+            testEmployee = _getEmployeeClient .CreateEmployee(15, "sheetal");
             addedRemark = _getEmployeeClient .AddRemarks(15, "good");
             addedRemark = _getEmployeeClient .AddRemarks(15, "bad");
-            testEmployee = _getEmployeeClient .CreateEmployee(SetupTestData.CreateTestEmployee(1, "tanvi"));
+            testEmployee = _getEmployeeClient .CreateEmployee(1, "tanvi");
             addedRemark = _getEmployeeClient  .AddRemarks(1, "worst");
             var list = _retrieveClient.GetEmployeesByRemark("good");
 
@@ -150,17 +156,76 @@ namespace WcfServiceFixture
         public void RetrivalOfEmployeesWithRemarks()
         {
             _getEmployeeClient .EmployeeClear();
-            var testEmployee = _getEmployeeClient .CreateEmployee(SetupTestData.CreateTestEmployee(17, "tanya"));
+            var testEmployee = _getEmployeeClient .CreateEmployee(17, "tanya");
             var addedRemark = _getEmployeeClient .AddRemarks(17, "good");
-            testEmployee = _getEmployeeClient .CreateEmployee(SetupTestData.CreateTestEmployee(15, "sheetal"));
+            testEmployee = _getEmployeeClient .CreateEmployee(15, "sheetal");
             addedRemark = _getEmployeeClient .AddRemarks(15, "good");
             addedRemark = _getEmployeeClient .AddRemarks(15, "bad");
-            testEmployee = _getEmployeeClient .CreateEmployee(SetupTestData.CreateTestEmployee(1, "tanvi"));
+            testEmployee = _getEmployeeClient .CreateEmployee(1, "tanvi");
             addedRemark = _getEmployeeClient .AddRemarks(1, "worst");
-            testEmployee = _getEmployeeClient .CreateEmployee(SetupTestData.CreateTestEmployee(5, "swarna"));
+            testEmployee = _getEmployeeClient .CreateEmployee(5, "swarna");
             var list = _retrieveClient.GetEmployeesHavingRemarks();
 
             Assert.AreEqual(list.Length, 3);
+        }
+
+        //id cant be non positive and it must be a whole number
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void IdShouldBePositiveInteger()
+        {
+            _getEmployeeClient.EmployeeClear();
+            var e = _getEmployeeClient.CreateEmployee(1,"sheetal");
+            if (e is Employee)
+            {
+                
+                e = _getEmployeeClient.CreateEmployee(-1, "sheetal");
+            }
+            
+        }
+
+        /// <summary>
+        /// names entered should not contain special characters like
+        /// @ # $%& or blank name with only spaces and so on
+        /// accepted formats are: John, John Doe, O'Dell i.e,
+        /// names with lower or upper case letters a space or a apostrophe(')
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void NameShouldNotContainInvalidCharacters()
+        {
+            _getEmployeeClient.EmployeeClear();
+            var e = _getEmployeeClient.CreateEmployee(1, "sheetal");
+            if (e is Employee)
+            {
+
+                e = _getEmployeeClient.CreateEmployee(1, "@sheetal");
+            }
+
+        }
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void NameShouldNotContainonlySpaces()
+        {
+            _getEmployeeClient.EmployeeClear();
+            var e = _getEmployeeClient.CreateEmployee(1, "sheetal");
+            if (e is Employee)           
+                e = _getEmployeeClient.CreateEmployee(5, "     ");
+            
+
+        }
+
+        [TestMethod]
+       
+        public void NameWithValidCharactersShouldGetAddedInDataList()
+        {
+            _getEmployeeClient.EmployeeClear();
+            var e = _getEmployeeClient.CreateEmployee(1, "sheetal");
+            if (e is Employee)           
+                e = _getEmployeeClient.CreateEmployee(5, "Tanya Sharma");
+
+            e = _getEmployeeClient.CreateEmployee(10, "John O'Carner");
+
         }
 
     }

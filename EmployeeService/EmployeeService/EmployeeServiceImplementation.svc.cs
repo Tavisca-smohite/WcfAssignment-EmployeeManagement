@@ -15,36 +15,35 @@ namespace EmployeeService
     {
         public static List<Employee> _employeeList = new List<Employee>();
 
-        public Employee CreateEmployee(Employee employee)
+        public Employee CreateEmployee(int id, string name)
         {
-                var result = _employeeList.Where(t => t.Id == employee.Id).FirstOrDefault();
-                if (result != null)
+            var result = _employeeList.Where(t => t.Id == id).FirstOrDefault();
+            if (result != null)
+            {
+                CustomTypeException exceptionDetails = new CustomTypeException();
+                exceptionDetails.Reason = "can not make entry";
+                exceptionDetails.Description = "Record Already Present with same ID";
+                throw new FaultException<CustomTypeException>(exceptionDetails);
+            }
+
+            /*foreach (var item in _employeeList)
+            {
+                if (item.Id == employee.Id)
                 {
                     CustomTypeException exceptionDetails = new CustomTypeException();
                     exceptionDetails.Reason = "can not make entry";
                     exceptionDetails.Description = "Record Already Present with same ID";
                     throw new FaultException<CustomTypeException>(exceptionDetails);
                 }
-                
-                /*foreach (var item in _employeeList)
-                {
-                    if (item.Id == employee.Id)
-                    {
+            }*/
+            var employee = new Employee(id, name);
+            employee.RemarkDate = DateTime.Now;
+            employee.RemarkText = new List<string>();
+            employee.RemarkText.Add("No Remarks Added Yet");
+            _employeeList.Add(employee);
+            return employee;
 
-                        CustomTypeException exceptionDetails = new CustomTypeException();
-                        exceptionDetails.Reason = "can not make entry";
-                        exceptionDetails.Description = "Record Already Present with same ID";
-                        throw new FaultException<CustomTypeException>(exceptionDetails);
-                    }
 
-                }*/
-                employee.RemarkDate = DateTime.Now;
-                employee.RemarkText = new List<string>();
-                employee.RemarkText.Add("No Remarks Added Yet");
-                _employeeList.Add(employee);
-                return employee;
-            
-            
 
 
         }
@@ -97,29 +96,22 @@ namespace EmployeeService
 
         public Employee GetEmployee(int Id)
         {
-            
-            foreach (var item in _employeeList)
-            {
-                if (item.Id == Id)
-                {
-                    return item;
-                }
-            }
-            return null;
+            var result = _employeeList.Where(t => t.Id == Id).FirstOrDefault();           
+            return result;
 
         }
 
         public Employee GetEmployee(string Name)
         {
-
-            foreach (var item in _employeeList)
-            {
-                if (item.Name == Name)
-                {
-                    return item;
-                }
-            }
-            return null;
+            var result = _employeeList.Where(t => t.Name == Name).FirstOrDefault();
+            //foreach (var item in _employeeList)
+            //{
+            //    if (item.Name == Name)
+            //    {
+            //        return item;
+            //    }
+            //}
+            return result;
 
         }
 
@@ -133,12 +125,17 @@ namespace EmployeeService
         public List<Employee> GetEmployeesByRemark(string searchRemark)
         {
             List<Employee> resultList = new List<Employee>();
+          
             _employeeList.ForEach(e =>
             {
+                
                 foreach (var item in e.RemarkText)
                 {
                     if (item == searchRemark)
+                    {
                         resultList.Add(e);
+                        break;
+                    }
                 }
             });
 
@@ -162,5 +159,7 @@ namespace EmployeeService
 
             return resultList;
         }
+
+
     }
 }
